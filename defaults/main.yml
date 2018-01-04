@@ -1,0 +1,10 @@
+---
+# defaults file for apache_redirect
+
+company:
+  name: company
+available:
+  sitename: sitename
+fqdn: sitename.domain.com
+hostname: hostname
+port: PortToRedirect

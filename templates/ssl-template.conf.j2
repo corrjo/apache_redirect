@@ -1,0 +1,26 @@
+<VirtualHost *:80>
+	ServerAdmin webmaster@{{company.name}}
+	ServerName {{hostname}}
+	ServerAlias {{hostname}}
+	Redirect permanent / https://{{fqdn}}/
+</VirtualHost>
+
+<VirtualHost *:443>
+	ServerAdmin webmaster@{{company.name}}
+	ServerName {{hostname}}
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+        Options -Indexes
+
+        SSLEngine on
+        SSLCertificateFile /etc/ssl/certs/ssl-cert-snakeoil.pem
+        SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+	
+        ProxyRequests Off
+	<Proxy *>
+		Order deny,allow
+		Allow from all
+	</Proxy>
+	ProxyPreserveHost on
+	ProxyPass / http://localhost:{{port}}/ nocanon
+	AllowEncodedSlashes NoDecode
+</VirtualHost>
